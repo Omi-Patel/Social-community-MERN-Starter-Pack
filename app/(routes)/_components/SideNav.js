@@ -1,6 +1,8 @@
 "use client";
-import MenuList from "@/app/_utils/MenuList";
-import { Button } from "@/components/ui/button";
+// import MenuList from "@/app/_utils/MenuList";
+import MenuList from "../../_utils/MenuList";
+// import { Button } from "@/components/ui/button";
+import { Button } from "../../../components/ui/button";
 import { UserButton, useUser } from "@clerk/nextjs";
 
 import { LogIn } from "lucide-react";
@@ -16,7 +18,11 @@ function SideNav({ toggleSideBar }) {
 
       <div className="flex flex-col mt-10">
         {MenuList.map((item, index) => (
-          <Link href={item.path} onClick={() => toggleSideBar(false)}>
+          <Link
+            key={index}
+            href={item.path}
+            onClick={() => toggleSideBar(false)}
+          >
             <h2
               variant="ghost"
               className="group p-4 flex gap-5 items-center
@@ -42,7 +48,7 @@ function SideNav({ toggleSideBar }) {
               </Button>
             </Link>
           ) : (
-            <div className="flex items-center gap-3"> 
+            <div className="flex items-center gap-3">
               <UserButton /> Profile
             </div>
           )}
