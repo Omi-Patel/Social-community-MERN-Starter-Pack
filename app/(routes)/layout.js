@@ -1,10 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideNav from "./_components/SideNav";
 import Header from "./_components/Header";
+import GlobalApi from "../_utils/GlobalApi";
+import { useUser } from "@clerk/nextjs";
+import {UserDetailContext} from '../_context/UserDetailContext'
 
 function layout({ children }) {
-  const [toggleSideBar, setToggleSideBar] = useState(true);
+  const [toggleSideBar, setToggleSideBar] = useState(false);
+
+  const { user } = useUser();
+
+  const {userDetail, setUserDetail} = useContext(UserDetailContext)
+
+  useEffect(() => {
+    user && getUserDetails();
+  }, [user]);
+  const getUserDetails = () => {
+    GlobalApi.getUserByEmail(user.primaryEmailAddress.emailAddress).then(
+      (response) => {
+        // console.log(response);
+        setUserDetail(response.data)
+      }
+    );
+  };
+
   return (
     <div>
       {/* This side bar used when screen size is medium or larger  */}
@@ -15,7 +35,7 @@ function layout({ children }) {
       {toggleSideBar && (
         <div
           className="bg-white absolute md:w-64 md:block h-screen 
-        animate-in duration-700"
+        animate-in duration-700 z-30"
         >
           <SideNav toggleSideBar={() => setToggleSideBar(false)} />
         </div>
@@ -26,9 +46,9 @@ function layout({ children }) {
         <Header toggleSideBar={() => setToggleSideBar(true)} />
         <div className="grid grid-cols-1 md:grid-cols-3">
           {/* user used render page route  */}
-          <div className="md:col-span-2">{children}</div>
+          <div className="md:col-span-3">{children}</div>
           {/* Right Most Section of page */}
-          <div className="p-5">Side Section</div>
+          {/* <div className="p-5">Side Section</div> */}
         </div>
       </div>
     </div>

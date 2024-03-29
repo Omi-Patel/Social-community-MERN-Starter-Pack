@@ -1,7 +1,5 @@
 "use client";
-// import MenuList from "@/app/_utils/MenuList";
 import MenuList from "../../_utils/MenuList";
-// import { Button } from "@/components/ui/button";
 import { Button } from "../../../components/ui/button";
 import { UserButton, useUser } from "@clerk/nextjs";
 
@@ -13,7 +11,7 @@ import React from "react";
 function SideNav({ toggleSideBar }) {
   const { user } = useUser();
   return (
-    <div className=" h-full p-5 ">
+    <div className="h-full p-5 border bg-slate-200 fixed">
       <Image src="/logo.svg" alt="logo" width={280} height={200} />
 
       <div className="flex flex-col mt-10">
@@ -35,24 +33,22 @@ function SideNav({ toggleSideBar }) {
           </Link>
         ))}
       </div>
-      <div className="absolute bottom-10 flex gap-3 items-center">
-        <h2>
-          {!user ? (
-            <Link href={"/sign-in"}>
-              <Button
-                variant="ghost"
-                className="flex gap-2 items-center cursor-pointer"
-              >
-                <LogIn />
-                Sign In
-              </Button>
-            </Link>
-          ) : (
-            <div className="flex items-center gap-3">
-              <UserButton /> Profile
-            </div>
-          )}
-        </h2>
+      <div className="absolute bottom-10  flex gap-3 items-center">
+        {!user ? (
+          <Link href="/sign-up">
+            <Button
+              variant="ghost"
+              className="flex gap-2 items-center cursor-pointer"
+            >
+              <LogIn />
+              Sign In
+            </Button>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3  p-3 ">
+            <UserButton /> Profile
+          </div>
+        )}
       </div>
     </div>
   );

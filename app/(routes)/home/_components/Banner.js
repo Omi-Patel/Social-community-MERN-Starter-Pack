@@ -1,5 +1,5 @@
 // import { Button } from "@/components/ui/button";
-import {Button} from '../../../../components/ui/button'
+import { Button } from "../../../../components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,12 +8,12 @@ function Banner() {
   return (
     <div
       className="p-2 bg-white-400 
-    rounded-xl shadow-sm flex items-center
+    rounded-xl shadow-sm flex flex-col items-center 
     bg-blue-100
-     border gap-5"
+     border gap-3"
     >
       <Image src="/social-panda-1.png" width={200} height={200} alt="panda" />
-      <div>
+      <div className="text-center">
         <h2 className="font-bold text-[29px] ">WELCOME TO SOCIAL PANDA</h2>
         <h2 className="">Join Community, Create and Share your thought</h2>
         <Link href={"/sign-in"}>
